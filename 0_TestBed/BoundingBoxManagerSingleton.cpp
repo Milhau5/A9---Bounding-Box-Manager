@@ -158,18 +158,30 @@ void BoundingBoxManagerSingleton::CalculateCollision(void)
 			vector3 v1Max = static_cast<vector3>(m_lMatrix[i] * vector4(m_lBox[i]->GetMaximumAABB(),1));
 
 			//?
-			//vector3 v1Minno = static_cast<vector3>(m_lMatrix[i] * vector4(m_lBox[i]->GetMaximumOBB(),1));
+			vector3 v1Minno = static_cast<vector3>(m_lMatrix[i] * vector4(m_lBox[i]->GetMinimumOBB(),1));
+			vector3 v1Maxxo = static_cast<vector3>(m_lMatrix[i] * vector4(m_lBox[i]->GetMaximumOBB(),1));
 
 			vector3 v2Min = static_cast<vector3>(m_lMatrix[j] * vector4(m_lBox[j]->GetMinimumAABB(),1));
 			vector3 v2Max = static_cast<vector3>(m_lMatrix[j] * vector4(m_lBox[j]->GetMaximumAABB(),1));
 
+			//more
+			vector3 v2Minno = static_cast<vector3>(m_lMatrix[j] * vector4(m_lBox[j]->GetMinimumOBB(),1));
+			vector3 v2Maxxo = static_cast<vector3>(m_lMatrix[j] * vector4(m_lBox[j]->GetMaximumOBB(),1));
+
 			bool bColliding = true;
-			if(v1Max.x < v2Min.x || v1Min.x > v2Max.x)
+			if(v1Max.x < v2Min.x || v1Min.x > v2Max.x || v1Maxxo.x < v2Minno.x || v1Minno.x > v2Maxxo.x)
 				bColliding = false;
-			else if(v1Max.y < v2Min.y || v1Min.y > v2Max.y)
+			else if(v1Max.y < v2Min.y || v1Min.y > v2Max.y || v1Maxxo.y < v2Minno.y || v1Minno.y > v2Maxxo.y)
 				bColliding = false;
-			else if(v1Max.z < v2Min.z || v1Min.z > v2Max.z)
+			else if(v1Max.z < v2Min.z || v1Min.z > v2Max.z || v1Maxxo.z < v2Minno.z || v1Minno.z > v2Maxxo.z)
 				bColliding = false;
+			//
+			/*if(v1Maxxo.x < v2Minno.x || v1Minno.x > v2Maxxo.x)
+				bColliding = false;
+			else if(v1Maxxo.y < v2Minno.y || v1Minno.y > v2Maxxo.y)
+				bColliding = false;
+			else if(v1Maxxo.z < v2Minno.z || v1Minno.z > v2Maxxo.z)
+				bColliding = false;*/
 
 			if(bColliding)
 				m_lColor[i] = m_lColor[j] = MERED; //We make the Boxes red
