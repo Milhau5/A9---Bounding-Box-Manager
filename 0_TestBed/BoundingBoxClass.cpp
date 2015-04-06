@@ -48,6 +48,11 @@ vector3 BoundingBoxClass::GetMinimumOBB(void){ return m_v3Min; }
 vector3 BoundingBoxClass::GetMaximumOBB(void){ return m_v3Max; }
 vector3 BoundingBoxClass::GetCentroid(void){ return m_v3Centroid; }
 String BoundingBoxClass::GetName(void){return m_sName;}
+//
+vector3 BoundingBoxClass::GetMinimumAABB(void){ return m_v3MinAABB; }
+vector3 BoundingBoxClass::GetMaximumAABB(void){ return m_v3MaxAABB; }
+vector3 BoundingBoxClass::GetCentroidAABB(void){ return m_v3CentroidAABB; }
+//String BoundingBoxClass::GetAABBName(void){return m_sName;} //should there be a different string for name? Does name matter at all?
 //Methods
 void BoundingBoxClass::GenerateOrientedBoundingBox(String a_sInstanceName)
 {

@@ -59,10 +59,19 @@ void BoundingBoxManagerSingleton::GenerateBoundingBox(matrix4 a_mModelToWorld, S
 		{
 			//Create a new bounding Box
 			BoundingBoxClass* pBB = new BoundingBoxClass();
+			
+			//BoundingBoxClass* aBB = new BoundingBoxClass();
+			
 			//construct its information out of the instance name
 			pBB->GenerateOrientedBoundingBox(a_sInstanceName);
+			
+			//aBB->GenerateAxisAlignedBoundingBox(a_mModelToWorld); ?
+			
 			//Push the Box back into the list
 			m_lBox.push_back(pBB);
+			
+			//m_lBox.push_back(aBB);
+			
 			//Push a new matrix into the list
 			m_lMatrix.push_back(matrix4(IDENTITY));
 			//Specify the color the Box is going to have
@@ -134,7 +143,7 @@ void BoundingBoxManagerSingleton::CalculateCollision(void)
 		//Make all the Boxs white
 		m_lColor[nBox] = vector3(1.0f);
 		//Place all the centroids of Boxs in global space
-		lCentroid.push_back(static_cast<vector3>(m_lMatrix[nBox] * vector4(m_lBox[nBox]->GetCentroid(), 1.0f)));
+		lCentroid.push_back(static_cast<vector3>(m_lMatrix[nBox] * vector4(m_lBox[nBox]->GetCentroidAABB(), 1.0f)));
 	}
 
 	//Now the actual check
@@ -145,11 +154,14 @@ void BoundingBoxManagerSingleton::CalculateCollision(void)
 			//If the distance between the center of both Boxs is less than the sum of their radius there is a collision
 			//For this check we will assume they will be colliding unless they are not in the same space in X, Y or Z
 			//so we place them in global positions
-			vector3 v1Min = static_cast<vector3>(m_lMatrix[i] * vector4(m_lBox[i]->GetMinimumOBB(),1)); //Key for HW assignment
-			vector3 v1Max = static_cast<vector3>(m_lMatrix[i] * vector4(m_lBox[i]->GetMaximumOBB(),1));
+			vector3 v1Min = static_cast<vector3>(m_lMatrix[i] * vector4(m_lBox[i]->GetMinimumAABB(),1)); //Key for HW assignment
+			vector3 v1Max = static_cast<vector3>(m_lMatrix[i] * vector4(m_lBox[i]->GetMaximumAABB(),1));
 
-			vector3 v2Min = static_cast<vector3>(m_lMatrix[j] * vector4(m_lBox[j]->GetMinimumOBB(),1));
-			vector3 v2Max = static_cast<vector3>(m_lMatrix[j] * vector4(m_lBox[j]->GetMaximumOBB(),1));
+			//?
+			//vector3 v1Minno = static_cast<vector3>(m_lMatrix[i] * vector4(m_lBox[i]->GetMaximumOBB(),1));
+
+			vector3 v2Min = static_cast<vector3>(m_lMatrix[j] * vector4(m_lBox[j]->GetMinimumAABB(),1));
+			vector3 v2Max = static_cast<vector3>(m_lMatrix[j] * vector4(m_lBox[j]->GetMaximumAABB(),1));
 
 			bool bColliding = true;
 			if(v1Max.x < v2Min.x || v1Min.x > v2Max.x)

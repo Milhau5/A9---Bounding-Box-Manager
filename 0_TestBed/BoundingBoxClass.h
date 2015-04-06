@@ -20,6 +20,7 @@ class BoundingBoxClass
 	vector3 m_v3Size;//Size of the Box
 	vector3 m_v3SizeAABB;
 	String m_sName;//Name of the BoundingBox (to relate to the instance)
+	//String m_aName;
 
 public:
 	/* Constructor */
@@ -46,11 +47,17 @@ public:
 	*/
 	vector3 GetMinimumOBB(void);
 
+	//NEW
+	vector3 GetMinimumAABB(void);
+
 	/*
 	GetMaximum
 		Returns the maximum vector
 	*/
 	vector3 GetMaximumOBB(void);
+
+	//NEW
+	vector3 GetMaximumAABB(void);
 
 	/*
 	GetCentroid
@@ -58,11 +65,17 @@ public:
 	*/
 	vector3 GetCentroid(void);
 
+	//NEW
+	vector3 GetCentroidAABB(void);
+
 	/*
 	GetName
 		Returns the name of the sphere to associate it with an instance
 	*/
 	String GetName(void);
+
+	//NEW
+	//String GetAABBName(void);
 
 	/*
 	GenerateOrientedBoundingBox
