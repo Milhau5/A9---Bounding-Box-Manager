@@ -18,7 +18,7 @@ class BoundingBoxClass
 	vector3 m_v3MinAABB;
 	vector3 m_v3MaxAABB;
 	vector3 m_v3Size;//Size of the Box
-	vector3 m_v3SizeAABB;
+	//vector3 m_v3SizeAABB;
 	String m_sName;//Name of the BoundingBox (to relate to the instance)
 	//String m_aName;
 
@@ -73,6 +73,8 @@ public:
 		Returns the name of the sphere to associate it with an instance
 	*/
 	String GetName(void);
+
+	vector3 m_v3SizeAABB;
 
 	//NEW
 	//String GetAABBName(void);

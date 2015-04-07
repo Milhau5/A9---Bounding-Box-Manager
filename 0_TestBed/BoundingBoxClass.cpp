@@ -4,8 +4,11 @@ void BoundingBoxClass::Init(void)
 {
 	m_bInitialized = false;
 	m_v3Min = vector3(0.0f);
+	m_v3MinAABB = vector3(0.0f);
 	m_v3Max = vector3(0.0f);
+	m_v3MaxAABB = vector3(0.0f);
 	m_v3Centroid = vector3(0.0f);
+	m_v3CentroidAABB = vector3(0.0f);
 	m_sName = "NULL";
 }
 void BoundingBoxClass::Swap(BoundingBoxClass& other)
@@ -29,6 +32,10 @@ BoundingBoxClass::BoundingBoxClass(BoundingBoxClass const& other)
 	m_v3Max = other.m_v3Max;
 	m_v3Centroid = other.m_v3Centroid;
 	m_sName = other.m_sName;
+	//
+	m_v3MinAABB = other.m_v3MinAABB;
+	m_v3MaxAABB = other.m_v3MaxAABB;
+	m_v3CentroidAABB = other.m_v3CentroidAABB;
 }
 BoundingBoxClass& BoundingBoxClass::operator=(BoundingBoxClass const& other)
 {
